@@ -34,7 +34,7 @@ if (cluster.isMaster) {
 
   app.use(
     cors({
-      origin: process.env.NODE_ENV !== "production" && "localhost:3000",
+      origin: process.env.NODE_ENV !== "production" ? "localhost:3000":"https://adoring-morse-50cd98.netlify.app/",
       optionsSuccessStatus: 200
     })
   );
