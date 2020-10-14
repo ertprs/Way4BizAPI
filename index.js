@@ -3,6 +3,7 @@ const os = require("os");
 const path = require("path");
 if (cluster.isMaster) {
   // MASTER PROCESS
+
   const n_cpus = os.cpus().length;
   console.log(`forking ${n_cpus} processes`);
   for (let i = 0; i < n_cpus; i++) {
@@ -18,7 +19,7 @@ if (cluster.isMaster) {
   const passport = require("passport");
   const helmet = require("helmet");
   const compression = require("compression");
-
+  const cors = require("cors");
   const adminRoutes = require("./controllers/admin");
   const authRoutes = require("./controllers/auth");
   const shopRoutes = require("./controllers/shop");
@@ -30,6 +31,13 @@ if (cluster.isMaster) {
     uri: process.env.MONGO_URI,
     collection: "sessions"
   });
+
+  app.use(
+    cors({
+      origin: process.env.NODE_ENV !== "production" && "localhost:3000",
+      optionsSuccessStatus: 200
+    })
+  );
   const mongooseConnect = async () => {
     await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
