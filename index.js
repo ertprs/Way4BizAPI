@@ -34,10 +34,13 @@ if (cluster.isMaster) {
 
   app.use(
     cors({
-      origin: process.env.NODE_ENV !== "production" ? "localhost:3000":"https://adoring-morse-50cd98.netlify.app/",
-      optionsSuccessStatus: 200
+      origin:
+        process.env.NODE_ENV !== "production"
+          ? "localhost:3000"
+          : "https://adoring-morse-50cd98.netlify.app/"
     })
   );
+  ("https://adoring-morse-50cd98.netlify.app/");
   const mongooseConnect = async () => {
     await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
